@@ -30,12 +30,14 @@ public class PracticeFormTest {
     @Test
     void fillPracticeFormTest() {
         open("/automation-practice-form");
+
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
         $("#userEmail").setValue(email);
         $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue(mobile);
 
+        //Date of Birth
         $("#dateOfBirthInput").click();
         $(".react-datepicker__year-select").selectOption("1987");
         $(".react-datepicker__month-select").selectOption("November");
@@ -43,6 +45,7 @@ public class PracticeFormTest {
 
         $("#subjectsInput").setValue(subjects).pressEnter();
 
+        //Hobbies
         $("#hobbiesWrapper").$(byText("Sports")).click();
         $("#hobbiesWrapper").$(byText("Reading")).click();
         $("#hobbiesWrapper").$(byText("Music")).click();
@@ -50,9 +53,11 @@ public class PracticeFormTest {
         $("#uploadPicture").uploadFromClasspath("QA-Tester-meme-03.jpg");
         $("#currentAddress").setValue(currentAddress);
 
+        //State and City
         $("#react-select-3-input").setValue("NCR").pressEnter();
         $("#react-select-4-input").setValue("Noida").pressEnter();
 
+        //Submit
         executeJavaScript("$('footer').remove()");
         $("[id=submit]").pressEnter();
 
