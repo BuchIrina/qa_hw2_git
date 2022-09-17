@@ -35,18 +35,24 @@ public class PracticeFormTest {
         $("#userEmail").setValue(email);
         $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue(mobile);
+
         $("#dateOfBirthInput").click();
         $(".react-datepicker__year-select").selectOption("1987");
         $(".react-datepicker__month-select").selectOption("November");
         $(".react-datepicker__day--030").click();
+
         $("#subjectsInput").setValue(subjects).pressEnter();
+
         $("#hobbiesWrapper").$(byText("Sports")).click();
         $("#hobbiesWrapper").$(byText("Reading")).click();
         $("#hobbiesWrapper").$(byText("Music")).click();
+
         $("#uploadPicture").uploadFromClasspath("QA-Tester-meme-03.jpg");
         $("#currentAddress").setValue(currentAddress);
+
         $("#react-select-3-input").setValue("NCR").pressEnter();
         $("#react-select-4-input").setValue("Noida").pressEnter();
+
         executeJavaScript("$('footer').remove()");
         $("[id=submit]").pressEnter();
 
