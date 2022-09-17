@@ -3,52 +3,65 @@ package com.denoqa;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.w3c.dom.Text;
 
+
+import java.io.File;
+
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTest {
 
     @BeforeAll
     static void config() {
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.browserSize = "1920x1080";
         Configuration.holdBrowserOpen = true;
     }
 
     @Test
     void fillPracticeFormTest() {
-        String firstName = "Irina";
-        String lastName = "Buchneva";
-        String email = "irina@gmail.com";
-        String mobile = "89243657856";
+        String firstName = "Darth";
+        String lastName = "Vader";
+        String email = "darty@gmail.com";
+        String mobile = "0123456789";
         String subjects = "Eng";
-        String currentAddress = "Moscow, Pirogova street 15-56";
+        String currentAddress = "Empire, Death Star";
 
 
         open("/automation-practice-form");
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
         $("#userEmail").setValue(email);
-        $("#genterWrapper").$(byText("Female")).click();
+        $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue(mobile);
         $("#dateOfBirthInput").click();
+        $(".react-datepicker__year-select").selectOption("1987");
         $(".react-datepicker__month-select").selectOption("November");
-        $(".react-datepicker__year-select").selectOption("1986");
         $(".react-datepicker__day--030").click();
         $("#subjectsInput").setValue(subjects).pressEnter();
         $("#hobbiesWrapper").$(byText("Sports")).click();
         $("#hobbiesWrapper").$(byText("Reading")).click();
         $("#hobbiesWrapper").$(byText("Music")).click();
-        $("#uploadPicture").uploadFile("");
-
+        $("#uploadPicture").uploadFile(new File("src/test/resources/QA-Tester-meme-03.jpg"));
         $("#currentAddress").setValue(currentAddress);
-//        $("#firstName").setValue("Irina");
-//        $("#firstName").setValue("Irina");
-//        $("#firstName").setValue("Irina");
-//        $("#firstName").setValue("Irina");
+        $("#react-select-3-input").setValue("NCR").pressEnter();
+        $("#react-select-4-input").setValue("Noida").pressEnter();
+        executeJavaScript("$('footer').remove()");
+        $("[id=submit]").pressEnter();
+
+
+        $(".table-responsive").shouldHave(text(firstName));
+        $(".table-responsive").shouldHave(text(lastName));
+        $(".table-responsive").shouldHave(text(email));
+        $(".table-responsive").shouldHave(text("Male"));
+        $(".table-responsive").shouldHave(text(mobile));
+        $(".table-responsive").shouldHave(text("30 November,1987"));
+        $(".table-responsive").shouldHave(text("English"));
+        $(".table-responsive").shouldHave(text("Sports, Reading, Music"));
+        $(".table-responsive").shouldHave(text("QA-Tester-meme-03.jpg"));
+        $(".table-responsive").shouldHave(text("Empire, Death Star"));
+        $(".table-responsive").shouldHave(text("NCR Noida"));
+
     }
 }
