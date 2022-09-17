@@ -13,6 +13,14 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTest {
 
+    String firstName = "Darth";
+    String lastName = "Vader";
+    String email = "darty@gmail.com";
+    String mobile = "0123456789";
+    String subjects = "Eng";
+    String currentAddress = "Empire, Death Star";
+
+
     @BeforeAll
     static void config() {
         Configuration.baseUrl = "https://demoqa.com";
@@ -21,14 +29,6 @@ public class PracticeFormTest {
 
     @Test
     void fillPracticeFormTest() {
-        String firstName = "Darth";
-        String lastName = "Vader";
-        String email = "darty@gmail.com";
-        String mobile = "0123456789";
-        String subjects = "Eng";
-        String currentAddress = "Empire, Death Star";
-
-
         open("/automation-practice-form");
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
@@ -43,7 +43,7 @@ public class PracticeFormTest {
         $("#hobbiesWrapper").$(byText("Sports")).click();
         $("#hobbiesWrapper").$(byText("Reading")).click();
         $("#hobbiesWrapper").$(byText("Music")).click();
-        $("#uploadPicture").uploadFile(new File("src/test/resources/QA-Tester-meme-03.jpg"));
+        $("#uploadPicture").uploadFromClasspath("QA-Tester-meme-03.jpg");
         $("#currentAddress").setValue(currentAddress);
         $("#react-select-3-input").setValue("NCR").pressEnter();
         $("#react-select-4-input").setValue("Noida").pressEnter();
@@ -51,17 +51,17 @@ public class PracticeFormTest {
         $("[id=submit]").pressEnter();
 
 
-        $(".table-responsive").shouldHave(text(firstName));
-        $(".table-responsive").shouldHave(text(lastName));
-        $(".table-responsive").shouldHave(text(email));
-        $(".table-responsive").shouldHave(text("Male"));
-        $(".table-responsive").shouldHave(text(mobile));
-        $(".table-responsive").shouldHave(text("30 November,1987"));
-        $(".table-responsive").shouldHave(text("English"));
-        $(".table-responsive").shouldHave(text("Sports, Reading, Music"));
-        $(".table-responsive").shouldHave(text("QA-Tester-meme-03.jpg"));
-        $(".table-responsive").shouldHave(text("Empire, Death Star"));
-        $(".table-responsive").shouldHave(text("NCR Noida"));
-
+        $(".table-responsive").shouldHave(text(firstName),
+                text(lastName),
+                text(email),
+                text("Male"),
+                text(mobile),
+                text("30 November,1987"),
+                text("English"),
+                text("Sports, Reading, Music"),
+                text("QA-Tester-meme-03.jpg"),
+                text("Empire, Death Star"),
+                text("NCR Noida"));
     }
 }
+
